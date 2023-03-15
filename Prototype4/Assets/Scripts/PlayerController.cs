@@ -4,20 +4,43 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float speed = 10f;
-    float powerupStrength = 30f;
-    Vector3 positionOffset;
-    Rigidbody playerRb;
-    GameObject focalPoint;
+    //floats 
+    public float verticalInput;
+    private float speed = 5f;
+    private float powerupStrength = 30f;
+    
+
+    //Vectors
+    private Vector3 positionOffset;
+
+    //Rigidbodys
+    private Rigidbody playerRb;
+    
+
+    //GameObjects
+    private GameObject focalPoint;
     public GameObject powerUpIndicator;
+    public GameObject bullet;
+    
+    
+    //Booleans
     public bool hasPowerUp = false;
+
+    //Scripts
+    
+
     // Start is called before the first frame update
     void Start()
     {
         powerUpIndicator.SetActive(false);
+        
+
         playerRb = GetComponent<Rigidbody>();
+        
 
         focalPoint = GameObject.Find("FocalPoint");
+
+        
         
     }
 
@@ -25,10 +48,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         positionOffset = new Vector3(0, -0.5f, 0);
-        powerUpIndicator.transform.position = transform.position + positionOffset;
-        float verticalInput = Input.GetAxis("Vertical");
+        powerUpIndicator.transform.position = transform.position + positionOffset; // Setting the position of the power indicator
+        verticalInput = Input.GetAxis("Vertical"); 
 
-        playerRb.AddForce(focalPoint.transform.forward * speed * verticalInput);
+        playerRb.AddForce(focalPoint.transform.forward * speed * verticalInput); // Getting the input to move the player
+
+        
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,11 +62,13 @@ public class PlayerController : MonoBehaviour
         
         if (other.gameObject.CompareTag("Power Up"))
         {
-            powerUpIndicator.SetActive(true);
-            hasPowerUp = true;
-            Destroy(other.gameObject);
-            
-            StartCoroutine(PowerUpCountDownRoutine());
+            powerUpIndicator.SetActive(true); //On collision with the powerup set the powerup indicator active
+            hasPowerUp = true; // setting the has power up to true
+            Destroy(other.gameObject); //destroying the powerup as soon as the player collects it
+
+            //Instantiate(bullet, transform.position, transform.rotation);
+
+            StartCoroutine(PowerUpCountDownRoutine());  // keeping the time of the powerup till 7 seconds
         }
         
     }
@@ -51,9 +79,10 @@ public class PlayerController : MonoBehaviour
         {
             Rigidbody enemyRb = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = collision.gameObject.transform.position - transform.position;
-
+            
             Debug.Log("player collied with the enemy");
             enemyRb.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
+
             
         }
     }
