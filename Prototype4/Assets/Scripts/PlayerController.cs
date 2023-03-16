@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     //GameObjects
     private GameObject focalPoint;
     public GameObject powerUpIndicator;
-    public GameObject bullet;
+    
     
     
     //Booleans
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
             hasPowerUp = true; // setting the has power up to true
             Destroy(other.gameObject); //destroying the powerup as soon as the player collects it
 
-            //Instantiate(bullet, transform.position, transform.rotation);
+            
 
             StartCoroutine(PowerUpCountDownRoutine());  // keeping the time of the powerup till 7 seconds
         }
@@ -93,4 +93,6 @@ public class PlayerController : MonoBehaviour
         powerUpIndicator.SetActive(false);
         hasPowerUp = false;
     }
+
+    
 }
