@@ -4,7 +4,7 @@
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] enemyPrefab;
-    public GameObject[] powerUp;
+    public GameObject powerUp;
 
     Vector3 spawnPos;
 
@@ -30,8 +30,8 @@ public class SpawnManager : MonoBehaviour
         {
             waveNumber++;
             SpawnEnemyWaves(waveNumber);
-            int index = Random.Range(0, powerUp.Length);
-            Instantiate(powerUp[index], GenerateSpawnPosition(), powerUp[index].transform.rotation);
+            
+            Instantiate(powerUp, GenerateSpawnPosition(), powerUp.transform.rotation);
         }
     }
     

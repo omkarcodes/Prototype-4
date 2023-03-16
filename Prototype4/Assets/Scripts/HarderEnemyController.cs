@@ -36,7 +36,7 @@ public class HarderEnemyController : MonoBehaviour
 
             playerRb.AddForce(awayFromEnemy * speed, ForceMode.Impulse);
 
-            transform.position += new Vector3(0, 0, 0);
+            
         }
     }
 }
